@@ -1,0 +1,13 @@
+{
+    "name": "jelmervisser/odoo",
+    "description": "Odoo module for FOSSBilling",
+    "authors": [
+        {
+            "name": "Jelmer Visser",
+            "email": "j.visser@jvis.nl"
+        }
+    ],
+    "require": {
+        "obuchmann/odoo-jsonrpc": "^1.4"
+    }
+}

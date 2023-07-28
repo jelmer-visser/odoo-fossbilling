@@ -1,0 +1,97 @@
+{% extends request.ajax ? 'layout_blank.html.twig' : 'layout_default.html.twig' %}
+
+{% import 'macro_functions.html.twig' as mf %}
+
+{% block meta_title %}{{ 'Odoo'|trans }}{% endblock %}
+
+{% set active_menu = 'system' %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{ '/'|alink }}">
+                <svg class="icon">
+                    <use xlink:href="#home"/>
+                </svg>
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{ 'system'|alink }}">{{ 'Settings'|trans }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ 'Odoo'|trans }}</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    {% set config = admin.odoo_get_config({}|merge(request)) %}
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">{{ 'Odoo settings'|trans }}</h3>
+        </div>
+        <div class="card-body border-bottom">
+            <form method="post" action="{{ 'api/admin/odoo/save'|link }}" class="api-form" data-api-reload="1">
+                <input type="hidden" name="CSRFToken" value="{{ CSRFToken }}">
+                <div class="row row-cards">
+                    <div class="col-sm-12">
+                        <div class="col-sm-12 col-md-6 mb-3">
+                            <label class="form-label required" for="path">Odoo URL</label>
+                            <div class="col-auto">
+                                <div class="input-group input-group-flat">
+                                    <span class="input-group-text"></span>
+                                    <input type="text" class="form-control ps-0" name="odoo_url" id="odoo_url"
+                                           value="{{ config.odoo_url }}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-12 col-md-6 mb-3">
+                            <label class="form-label required" for="target">Odoo DB</label>
+                            <div class="col-auto">
+                                <div class="input-group input-group-flat">
+                            <span class="input-group-text">
+                            </span>
+                                    <input type="text" class="form-control ps-0" name="odoo_db" id="odoo_db"
+                                           value="{{ config.odoo_db }}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-12 col-md-6 mb-3">
+                            <label class="form-label required" for="target">Odoo Username</label>
+                            <div class="col-auto">
+                                <div class="input-group input-group-flat">
+                            <span class="input-group-text">
+                            </span>
+                                    <input type="text" class="form-control ps-0" name="odoo_username" id="odoo_username"
+                                           value="{{ config.odoo_username }}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-12 col-md-6 mb-3">
+                            <label class="form-label required" for="target">Odoo API key</label>
+                            <div class="col-auto">
+                                <div class="input-group input-group-flat">
+                            <span class="input-group-text">
+                            </span>
+                                    <input type="text" class="form-control ps-0" name="odoo_api_key" id="odoo_api_key"
+                                           value="{{ config.odoo_api_key }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary">
+                            <svg class="icon me-2">
+                                <use xlink:href="#plus"/>
+                            </svg>
+                            {{ 'Save'|trans }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

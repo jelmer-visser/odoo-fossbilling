@@ -1,0 +1,9 @@
+{
+  "id": "odoo",
+  "type": "mod",
+  "name": "Odoo sync",
+  "description": "Sync customers and invoices to Odoo",
+  "author": "Jelmer Visser",
+  "author_url": "https://www.imaginix.nl/",
+  "version": "1.0.0"
+}
