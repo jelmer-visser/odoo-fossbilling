@@ -94,7 +94,7 @@ class OdooService
 
         if(empty($odooInvoice)) {
             $invoiceId = $this->odoo->create('account.move', $invoiceData);
-            $response = $this->odoo->execute(new Method('account.move', 'post', $invoiceId));
+            $response = $this->odoo->execute(new Method('account.move', 'post', [$invoiceId]));
             $event->getDi()['logger']->setChannel('odoo')->info('Invoice created: ' . json_encode($response));
         } else {
             $invoiceId = $odooInvoice[0];
@@ -112,10 +112,10 @@ class OdooService
 
             $invoiceData['invoice_line_ids'] = array_merge($deleteLines, $invoiceData['invoice_line_ids']);
 
-            $this->odoo->execute(new Method('account.move', 'button_draft', $invoiceId));
+            $this->odoo->execute(new Method('account.move', 'button_draft', [$invoiceId]));
             $this->odoo->updateById('account.move', $invoiceId, $invoiceData);
 
-            $response = $this->odoo->execute(new Method('account.move', 'post', $invoiceId));
+            $response = $this->odoo->execute(new Method('account.move', 'post', [$invoiceId]));
 
             $event->getDi()['logger']->setChannel('odoo')->info('Invoice updated: ' . json_encode($response));
         }
