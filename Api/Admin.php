@@ -12,6 +12,11 @@ class Admin extends Api_Abstract
         return $extensionService->getConfig('mod_odoo');
     }
 
+    public function getTaxGroups()
+    {
+
+    }
+
     public function save($data): array
     {
         $required = [

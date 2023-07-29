@@ -6,6 +6,7 @@ require_once __DIR__ . "/vendor/autoload.php";
 
 use Box\Mod\Odoo\Factories\ServiceFactory;
 use Box_Event;
+use Box_Exception;
 use FOSSBilling\InjectionAwareInterface;
 use Pimple\Container;
 
@@ -39,8 +40,47 @@ class Service implements InjectionAwareInterface
         self::updateOrCreatePartner($event);
     }
 
+    public static function onAfterAdminInvoiceApprove(Box_Event $event) {
+        self::updateOrCreateInvoice($event);
+    }
+
+    public static function onAfterAdminInvoiceUpdate(Box_Event $event) {
+        self::updateOrCreateInvoice($event);
+    }
+
+    public static function onAfterAdminInvoicePaymentReceived(Box_Event $event) {
+        self::markInvoiceAsPaid($event);
+    }
+
+    public static function onAfterAdminInvoiceDelete(Box_Event $event)
+    {
+        //TODO: Delete invoice in Odoo
+    }
+
     private static function updateOrCreatePartner(Box_Event $event) {
-        $odooService = ServiceFactory::getInstance()->getOdooService($event->getDi());
-        $odooService->updateOrCreatePartner($event);
+        try {
+            $odooService = ServiceFactory::getInstance()->getOdooService($event->getDi());
+            $odooService->updateOrCreatePartner($event);
+        } catch (Box_Exception $e) {
+            $event->getDi()['logger']->setChannel('odoo')->error($e->getMessage());
+        }
+    }
+
+    private static function updateOrCreateInvoice(Box_Event $event) {
+        try {
+            $odooService = ServiceFactory::getInstance()->getOdooService($event->getDi());
+            $odooService->createOrUpdateInvoice($event);
+        } catch (Box_Exception $e) {
+            $event->getDi()['logger']->setChannel('odoo')->error($e->getMessage());
+        }
+    }
+
+    private static function markInvoiceAsPaid(Box_Event $event) {
+        try {
+            $odooService = ServiceFactory::getInstance()->getOdooService($event->getDi());
+            $odooService->markInvoiceAsPaid($event);
+        } catch (Box_Exception $e) {
+            $event->getDi()['logger']->setChannel('odoo')->error($e->getMessage());
+        }
     }
 }
