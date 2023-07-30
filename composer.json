@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.1",
         "obuchmann/odoo-jsonrpc": "^1.4"
     },
     "require-dev": {
