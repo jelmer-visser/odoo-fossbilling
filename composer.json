@@ -1,6 +1,7 @@
 {
     "name": "jelmervisser/odoo",
     "description": "Odoo module for FOSSBilling",
+    "license": "Apache 2.0",
     "authors": [
         {
             "name": "Jelmer Visser",
@@ -8,6 +9,18 @@
         }
     ],
     "require": {
+        "php": ">=8.0",
         "obuchmann/odoo-jsonrpc": "^1.4"
+    },
+    "require-dev": {
+        "phpstan/extension-installer": "^1.3",
+        "phpstan/phpstan-deprecation-rules": "^1.1",
+        "phpstan/phpstan": "^1.10"
+    },
+    "config": {
+        "vendor-dir": "./src/vendor",
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     }
 }
