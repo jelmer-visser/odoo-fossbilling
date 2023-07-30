@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "FOSSBilling",
+    "Odoo",
+    "phpstan"
+  ],
+  "ignoreWords": [
+    "transid",
+    "serie",
+    "opencollective",
+    "shivammathur",
+    "oprypin"
+  ],
+  "ignorePaths": [
+    "phpstan.neon"
+  ]
+}
